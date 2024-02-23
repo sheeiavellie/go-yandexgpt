@@ -4,6 +4,7 @@ import (
 	"net/http"
 )
 
+// TODO: Move const somewhere where it will make sense
 const (
 	BaseURL = "https://llm.api.cloud.yandex.net/foundationModels/v1/completion"
 )
@@ -14,12 +15,10 @@ type YandexGPTClient struct {
 }
 
 func NewYandexGPTClient(
-	apiKey,
-	catalogID string,
-	model yandexGPTModel,
+	apiKey string,
 ) *YandexGPTClient {
 	client := &http.Client{}
-	config := NewYandexGPTClientConfig(apiKey, catalogID, model)
+	config := NewYandexGPTClientConfig(apiKey)
 
 	return &YandexGPTClient{
 		config:     config,
@@ -31,6 +30,7 @@ func (c *YandexGPTClient) CreateRequest(
 	request YandexGPTRequest,
 ) (response YandexGPTResponse, err error) {
 
+	//TODO:
 	//1. Validate Request
 	//2. Create Request via c.newRequest(...)
 	//3. Send request via c.sendRequest(...)

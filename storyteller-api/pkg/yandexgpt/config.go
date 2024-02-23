@@ -1,19 +1,13 @@
 package yandexgpt
 
 type YandexGPTClientConfig struct {
-	apiKey    string
-	catalogID string
-	model     yandexGPTModel
+	apiKey string
 }
 
 func NewYandexGPTClientConfig(
-	apiKey,
-	catalogID string,
-	model yandexGPTModel,
+	apiKey string,
 ) *YandexGPTClientConfig {
 	return &YandexGPTClientConfig{
-		apiKey:    apiKey,
-		catalogID: catalogID,
-		model:     model,
+		apiKey: apiKey,
 	}
 }
