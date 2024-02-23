@@ -4,8 +4,11 @@ import (
 	"net/http"
 )
 
+const (
+	BaseURL = "https://llm.api.cloud.yandex.net/foundationModels/v1/completion"
+)
+
 type YandexGPTClient struct {
-	url        string
 	config     *YandexGPTClientConfig
 	httpClient *http.Client
 }
@@ -19,7 +22,6 @@ func NewYandexGPTClient(
 	config := NewYandexGPTClientConfig(apiKey, catalogID, model)
 
 	return &YandexGPTClient{
-		url:        "https://llm.api.cloud.yandex.net/foundationModels/v1/completion",
 		config:     config,
 		httpClient: client,
 	}
