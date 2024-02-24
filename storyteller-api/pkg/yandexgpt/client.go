@@ -20,20 +20,8 @@ func NewYandexGPTClient(
 	config := NewYandexGPTClientConfig(apiKey)
 
 	return &YandexGPTClient{
-		config: config,
-	}
-}
-
-type requestOptions struct {
-	body   any
-	header http.Header
-}
-
-type requestOption func(*requestOptions)
-
-func withBody(body any) requestOption {
-	return func(args *requestOptions) {
-		args.body = body
+		config:         config,
+		requestBuilder: internal.NewRequestBuilder(),
 	}
 }
 
@@ -41,17 +29,9 @@ func (c *YandexGPTClient) newRequest(
 	ctx context.Context,
 	method,
 	url string,
-	options ...requestOption,
+	req YandexGPTRequest,
 ) (*http.Request, error) {
-	args := &requestOptions{
-		body:   nil,
-		header: make(http.Header),
-	}
-
-	for _, option := range options {
-		option(args)
-	}
-	request, err := c.requestBuilder.Build(ctx, method, url, args.body, args.header)
+	request, err := c.requestBuilder.Build(ctx, method, url, req)
 	if err != nil {
 		return nil, err
 	}
@@ -88,7 +68,17 @@ func (c *YandexGPTClient) setHeaders(request *http.Request) {
 }
 
 func (c *YandexGPTClient) handleResponseError(response *http.Response) error {
-
+	var errResponse YandexGPTResponseBad
+	err := json.NewDecoder(response.Body).Decode(&errResponse)
+	if err != nil {
+		return err
+	}
+	return fmt.Errorf(
+		"bad response. http Status %d %s message %s",
+		errResponse.Error.HTTPCode,
+		errResponse.Error.HTTPStatus,
+		errResponse.Error.Message,
+	)
 }
 
 func (c *YandexGPTClient) CreateRequest(
@@ -98,15 +88,11 @@ func (c *YandexGPTClient) CreateRequest(
 
 	//TODO:
 	//1. Validate Request
-	//2. Create Request via c.newRequest(...)
-	//3. Send request via c.sendRequest(...)
-	//P.s. Use pointers
 
-	req, err := c.newRequest(ctx, http.MethodPost, c.config.BaseURL, withBody(request))
+	req, err := c.newRequest(ctx, http.MethodPost, c.config.BaseURL, request)
 	if err != nil {
 		return
 	}
-
 	err = c.sendRequest(req, &response)
 
 	return

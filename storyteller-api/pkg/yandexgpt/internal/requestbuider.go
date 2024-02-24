@@ -13,7 +13,6 @@ type RequestBuilder interface {
 		method,
 		url string,
 		body any,
-		header http.Header,
 	) (*http.Request, error)
 }
 
@@ -32,7 +31,6 @@ func (b *HTTPRequestBuilder) Build(
 	method,
 	url string,
 	body any,
-	header http.Header,
 ) (request *http.Request, err error) {
 	var bodyReader io.Reader
 	if body != nil {
@@ -51,8 +49,6 @@ func (b *HTTPRequestBuilder) Build(
 	if err != nil {
 		return
 	}
-	if header != nil {
-		request.Header = header
-	}
+
 	return
 }

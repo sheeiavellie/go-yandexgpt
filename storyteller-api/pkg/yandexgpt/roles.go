@@ -1,17 +1,24 @@
 package yandexgpt
 
-import "fmt"
+import (
+	"encoding/json"
+	"fmt"
+)
 
 var (
-	YandexGPTMessageRoleSystem    = yandexGPTRole{role: "system"}
-	YandexGPTMessageRoleUser      = yandexGPTRole{role: "user"}
-	YandexGPTMessageRoleAssistant = yandexGPTRole{role: "assistant"}
+	YandexGPTMessageRoleSystem    = yandexGPTRole{Role: "system"}
+	YandexGPTMessageRoleUser      = yandexGPTRole{Role: "user"}
+	YandexGPTMessageRoleAssistant = yandexGPTRole{Role: "assistant"}
 )
 
 type yandexGPTRole struct {
-	role string
+	Role string `json:"role"`
 }
 
 func (yr yandexGPTRole) String() string {
-	return fmt.Sprint(yr.role)
+	return fmt.Sprint(yr.Role)
+}
+
+func (yr yandexGPTRole) MarshalJSON() ([]byte, error) {
+	return json.Marshal(yr.Role)
 }

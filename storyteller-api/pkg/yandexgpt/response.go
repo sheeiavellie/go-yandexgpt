@@ -17,6 +17,10 @@ type YandexGPTResponse struct {
 	httpHeader
 }
 
+type YandexGPTResponseBad struct {
+	Error YandexGPTError `json:"error"`
+}
+
 type YandexGPTResult struct {
 	Alternatives []YandexGPTAlternative `json:"alternatives"`
 	Usage        YandexGPTUsage         `json:"usage"`
