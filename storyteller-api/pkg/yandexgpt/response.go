@@ -1,7 +1,20 @@
 package yandexgpt
 
+import "net/http"
+
+type Response interface {
+	SetHeader(http.Header)
+}
+
+type httpHeader http.Header
+
+func (h *httpHeader) SetHeader(header http.Header) {
+	*h = httpHeader(header)
+}
+
 type YandexGPTResponse struct {
 	Result YandexGPTResult `json:"result"`
+	httpHeader
 }
 
 type YandexGPTResult struct {
