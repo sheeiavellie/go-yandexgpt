@@ -1,7 +1,10 @@
 package yandexgpt
 
 import (
+	"context"
 	"net/http"
+
+	"github.com/rep-co/fablescope-backend/storyteller-api/pkg/yandexgpt/internal"
 )
 
 // TODO: Move const somewhere where it will make sense
@@ -10,23 +13,29 @@ const (
 )
 
 type YandexGPTClient struct {
-	config     *YandexGPTClientConfig
-	httpClient *http.Client
+	requestBuilder internal.RequestBuilder
+	config         *YandexGPTClientConfig
 }
 
 func NewYandexGPTClient(
 	apiKey string,
 ) *YandexGPTClient {
-	client := &http.Client{}
 	config := NewYandexGPTClientConfig(apiKey)
 
 	return &YandexGPTClient{
-		config:     config,
-		httpClient: client,
+		config: config,
 	}
 }
 
+func (c *YandexGPTClient) newRequest(
+	ctx context.Context,
+	method,
+	url string,
+) (*http.Request, error) {
+}
+
 func (c *YandexGPTClient) CreateRequest(
+	ctx context.Context,
 	request YandexGPTRequest,
 ) (response YandexGPTResponse, err error) {
 
