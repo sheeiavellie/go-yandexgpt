@@ -22,3 +22,10 @@ func (yr yandexGPTRole) String() string {
 func (yr yandexGPTRole) MarshalJSON() ([]byte, error) {
 	return json.Marshal(yr.Role)
 }
+
+func (yr *yandexGPTRole) UnmarshalJSON(b []byte) error {
+	if err := json.Unmarshal(b, &yr.Role); err != nil {
+		return err
+	}
+	return nil
+}
