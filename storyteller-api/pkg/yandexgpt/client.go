@@ -74,7 +74,7 @@ func (c *YandexGPTClient) handleResponseError(response *http.Response) error {
 		return err
 	}
 	return fmt.Errorf(
-		"bad response. http Status %d %s message %s",
+		"bad response. Http Status %d %s message %s",
 		errResponse.Error.HTTPCode,
 		errResponse.Error.HTTPStatus,
 		errResponse.Error.Message,
