@@ -3,7 +3,7 @@ package yandexgpt
 import "net/http"
 
 const (
-	BaseURL = "https://llm.api.cloud.yandex.net/foundationModels/v1/completion"
+	completionURL = "https://llm.api.cloud.yandex.net/foundationModels/v1/completion"
 )
 
 type YandexGPTClientConfig struct {
@@ -17,7 +17,7 @@ func NewYandexGPTClientConfig(
 ) *YandexGPTClientConfig {
 	return &YandexGPTClientConfig{
 		ApiKey:     apiKey,
-		BaseURL:    BaseURL,
+		BaseURL:    completionURL,
 		HTTPClient: &http.Client{},
 	}
 }
