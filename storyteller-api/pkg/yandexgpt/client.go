@@ -14,10 +14,19 @@ type YandexGPTClient struct {
 	config         *YandexGPTClientConfig
 }
 
-func NewYandexGPTClient(
+func NewYandexGPTClient() *YandexGPTClient {
+	config := NewYandexGPTClientConfig()
+
+	return &YandexGPTClient{
+		config:         config,
+		requestBuilder: internal.NewRequestBuilder(),
+	}
+}
+
+func NewYandexGPTClientWithAPIKey(
 	apiKey string,
 ) *YandexGPTClient {
-	config := NewYandexGPTClientConfig(apiKey)
+	config := NewYandexGPTClientConfigWithAPIKey(apiKey)
 
 	return &YandexGPTClient{
 		config:         config,
@@ -43,7 +52,6 @@ func (c *YandexGPTClient) sendRequest(
 	request *http.Request,
 	v Response,
 ) error {
-	//TODO: Mb check here if headers where set
 	response, err := c.config.HTTPClient.Do(request)
 	if err != nil {
 		return err
@@ -64,7 +72,18 @@ func (c *YandexGPTClient) sendRequest(
 
 func (c *YandexGPTClient) setHeaders(request *http.Request) {
 	request.Header.Set("Content-Type", "application/json")
-	request.Header.Set("Authorization", fmt.Sprintf("Api-Key %s", c.config.ApiKey))
+
+	if c.config.ApiKey != "" {
+		request.Header.Set(
+			"Authorization",
+			fmt.Sprintf("Api-Key %s", c.config.ApiKey),
+		)
+	} else if c.config.IAMToken != "" {
+		request.Header.Set(
+			"Authorization",
+			fmt.Sprintf("Bearer %s", c.config.IAMToken),
+		)
+	}
 }
 
 func (c *YandexGPTClient) handleResponseError(response *http.Response) error {

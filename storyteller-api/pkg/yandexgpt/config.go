@@ -8,11 +8,18 @@ const (
 
 type YandexGPTClientConfig struct {
 	ApiKey     string
+	IAMToken   string
 	BaseURL    string
 	HTTPClient *http.Client
 }
 
-func NewYandexGPTClientConfig(
+func NewYandexGPTClientConfig() *YandexGPTClientConfig {
+	return &YandexGPTClientConfig{
+		BaseURL:    completionURL,
+		HTTPClient: &http.Client{},
+	}
+}
+func NewYandexGPTClientConfigWithAPIKey(
 	apiKey string,
 ) *YandexGPTClientConfig {
 	return &YandexGPTClientConfig{
@@ -20,4 +27,8 @@ func NewYandexGPTClientConfig(
 		BaseURL:    completionURL,
 		HTTPClient: &http.Client{},
 	}
+}
+
+func (c *YandexGPTClientConfig) UpdateIAMToken(iamToken string) {
+	c.IAMToken = iamToken
 }
