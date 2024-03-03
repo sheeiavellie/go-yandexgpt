@@ -3,6 +3,7 @@ package internal
 import (
 	"bytes"
 	"context"
+	"encoding/json"
 	"io"
 	"net/http"
 )
@@ -17,13 +18,10 @@ type RequestBuilder interface {
 }
 
 type HTTPRequestBuilder struct {
-	encoder Encoder
 }
 
 func NewRequestBuilder() *HTTPRequestBuilder {
-	return &HTTPRequestBuilder{
-		encoder: &JSONEncoder{},
-	}
+	return &HTTPRequestBuilder{}
 }
 
 func (b *HTTPRequestBuilder) Build(
@@ -37,12 +35,12 @@ func (b *HTTPRequestBuilder) Build(
 		if v, ok := body.(io.Reader); ok {
 			bodyReader = v
 		} else {
-			var bytes *bytes.Buffer
-			bytes, err = b.encoder.Encode(body)
+			var bytes bytes.Buffer
+			err = json.NewEncoder(&bytes).Encode(body)
 			if err != nil {
 				return
 			}
-			bodyReader = bytes
+			bodyReader = &bytes
 		}
 	}
 	request, err = http.NewRequestWithContext(ctx, method, url, bodyReader)
