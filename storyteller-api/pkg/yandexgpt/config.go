@@ -13,7 +13,7 @@ type YandexGPTClientConfig struct {
 	HTTPClient *http.Client
 }
 
-func NewYandexGPTClientConfig() *YandexGPTClientConfig {
+func NewYandexGPTClientConfigWithIAMToken() *YandexGPTClientConfig {
 	return &YandexGPTClientConfig{
 		BaseURL:    completionURL,
 		HTTPClient: &http.Client{},

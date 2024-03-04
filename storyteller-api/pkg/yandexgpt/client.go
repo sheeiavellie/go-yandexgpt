@@ -9,13 +9,21 @@ import (
 	"github.com/rep-co/fablescope-backend/storyteller-api/pkg/yandexgpt/internal"
 )
 
+// YandexGPT Client
 type YandexGPTClient struct {
 	requestBuilder internal.RequestBuilder
 	config         *YandexGPTClientConfig
 }
 
-func NewYandexGPTClient() *YandexGPTClient {
-	config := NewYandexGPTClientConfig()
+// Creates new YandexGPT Client.
+//
+// If you're using this option, keep in mind that you will need to generate IAM  token yourself.
+//
+// This function doesn't require IAM token.
+//
+// However, you need to specify it by calling client's UpdateIAMToken(...) method.
+func NewYandexGPTClientWithIAMToken() *YandexGPTClient {
+	config := NewYandexGPTClientConfigWithIAMToken()
 
 	return &YandexGPTClient{
 		config:         config,
@@ -23,6 +31,9 @@ func NewYandexGPTClient() *YandexGPTClient {
 	}
 }
 
+// Creates new YandexGPT Client.
+//
+// You will need to specify your own API key.
 func NewYandexGPTClientWithAPIKey(
 	apiKey string,
 ) *YandexGPTClient {
@@ -44,7 +55,9 @@ func (c *YandexGPTClient) newRequest(
 	if err != nil {
 		return nil, err
 	}
+
 	c.setHeaders(request)
+
 	return request, nil
 }
 
@@ -100,11 +113,26 @@ func (c *YandexGPTClient) handleResponseError(response *http.Response) error {
 	)
 }
 
+// Updates IAM token.
+//
+// Always call it before creating a request.
+//
+// If you will use it when API key is specified, method CreateRequest(...) will always use API key.
+func (c *YandexGPTClient) UpdateIAMToken(iamToken string) {
+	c.config.UpdateIAMToken(iamToken)
+}
+
+// Creates request to YandexGPT.
+//
+// If you're using IAM token, make sure to update client's IAM token by calling
+// UpdateIAMToken(iamToken string) method first.
+//
+// Keep in mind that if for some strange reason you provided  API key and IAM token to the client,
+// this method will use API key
 func (c *YandexGPTClient) CreateRequest(
 	ctx context.Context,
 	request YandexGPTRequest,
 ) (response YandexGPTResponse, err error) {
-
 	//TODO:
 	//1. Validate Request
 
