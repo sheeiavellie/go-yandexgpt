@@ -18,12 +18,20 @@ type YandexGPTClient struct {
 // Creates new YandexGPT Client.
 //
 // If you're using this option, keep in mind that you will need to generate IAM  token yourself.
-//
-// This function doesn't require IAM token.
-//
-// However, you need to specify it by calling client's UpdateIAMToken(...) method.
-func NewYandexGPTClientWithIAMToken() *YandexGPTClient {
-	config := NewYandexGPTClientConfigWithIAMToken()
+func NewYandexGPTClientWithIAMToken(
+	iamToken string,
+) *YandexGPTClient {
+	config := NewYandexGPTClientConfigWithIAMToken(iamToken)
+
+	return &YandexGPTClient{
+		config:         config,
+		requestBuilder: internal.NewRequestBuilder(),
+	}
+}
+
+// Creates new YandexGPT Client.
+func NewYandexGPTClient() *YandexGPTClient {
+	config := NewYandexGPTClientConfig()
 
 	return &YandexGPTClient{
 		config:         config,
