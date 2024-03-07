@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/rep-co/fablescope-backend/storyteller-api/pkg/yandexgpt/internal"
+	"github.com/sheeiavellie/go-yandexgpt/internal"
 )
 
 // YandexGPT Client
