@@ -69,4 +69,4 @@ You can get all the necessary information from the [official documentation](http
 
 This project was ***highly*** inspired by [go-openai](https://github.com/sashabaranov/go-openai) by [sashabaranov](https://github.com/sashabaranov)
 
-*Made with 💖 and some wizardry 🧙🔮
+*Made with 💖 and some wizardry 🧙🔮*
