@@ -1,4 +1,4 @@
-# Go YandexGPT
+# ✨ Go YandexGPT ✨
 [![Go Report Card](https://goreportcard.com/badge/github.com/sashabaranov/go-openai)](https://goreportcard.com/report/github.com/sheeiavellie/go-yandexgpt)
 
 This library provides unofficial Go client for [YandexGPT API](https://cloud.yandex.ru/en/services/yandexgpt).
@@ -69,3 +69,4 @@ You can get all the necessary information from the [official documentation](http
 
 This project was ***highly*** inspired by [go-openai](https://github.com/sashabaranov/go-openai) by [sashabaranov](https://github.com/sashabaranov)
 
+*Made with 💖 and some wizardry 🧙🔮
