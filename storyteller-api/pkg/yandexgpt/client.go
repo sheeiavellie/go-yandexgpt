@@ -127,7 +127,7 @@ func (c *YandexGPTClient) handleResponseError(response *http.Response) error {
 //
 // If you will use it when API key is specified, method CreateRequest(...) will always use API key.
 func (c *YandexGPTClient) UpdateIAMToken(iamToken string) {
-	c.config.UpdateIAMToken(iamToken)
+	c.config.updateIAMToken(iamToken)
 }
 
 // Creates request to YandexGPT.

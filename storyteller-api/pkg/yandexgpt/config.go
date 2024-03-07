@@ -40,6 +40,6 @@ func NewYandexGPTClientConfigWithAPIKey(
 	}
 }
 
-func (c *YandexGPTClientConfig) UpdateIAMToken(iamToken string) {
+func (c *YandexGPTClientConfig) updateIAMToken(iamToken string) {
 	c.IAMToken = iamToken
 }
