@@ -1,4 +1,5 @@
 # ✨ Go YandexGPT ✨
+[![Go Reference](https://pkg.go.dev/badge/github.com/sheeiavellie/go-yandexgpt.svg)](https://pkg.go.dev/github.com/sheeiavellie/go-yandexgpt)
 [![Go Report Card](https://goreportcard.com/badge/github.com/sashabaranov/go-openai)](https://goreportcard.com/report/github.com/sheeiavellie/go-yandexgpt)
 
 This library provides unofficial Go client for [YandexGPT API](https://cloud.yandex.ru/en/services/yandexgpt).
