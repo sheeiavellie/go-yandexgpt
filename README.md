@@ -39,7 +39,7 @@ func main() {
 			},
 			{
 				Role: yandexgpt.YandexGPTMessageRoleUser,
-				Text: "TWO",
+				Text: "ONE",
 			},
 		},
 	}
