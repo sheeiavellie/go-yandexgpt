@@ -2,10 +2,12 @@ package yandexgpt
 
 import "fmt"
 
-// TODO: add other models
 var (
-	YandexGPTModel     = yandexGPTModel{modelName: "yandexgpt"}
-	YandexGPTModelLite = yandexGPTModel{modelName: "yandexgpt-lite"}
+	YandexGPT3Model     = yandexGPTModel{modelName: "yandexgpt"}
+	YandexGPT3ModelLite = yandexGPTModel{modelName: "yandexgpt-lite"}
+	YandexGPT4Model     = yandexGPTModel{modelName: "yandexgpt/rc"}
+	YandexGPT4ModelLite = yandexGPTModel{modelName: "yandexgpt-lite/rc"}
+	YandexGPT4Model32k  = yandexGPTModel{modelName: "yandexgpt-32k/rc"}
 )
 
 type yandexGPTModel struct {
