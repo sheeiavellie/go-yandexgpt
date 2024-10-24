@@ -3,11 +3,16 @@ package yandexgpt
 import "fmt"
 
 var (
-	YandexGPT3Model     = yandexGPTModel{modelName: "yandexgpt"}
-	YandexGPT3ModelLite = yandexGPTModel{modelName: "yandexgpt-lite"}
-	YandexGPT4Model     = yandexGPTModel{modelName: "yandexgpt/rc"}
+	// Yandex GPT Pro 3rd generation
+	YandexGPTModel = yandexGPTModel{modelName: "yandexgpt"}
+	// Yandex GPT Lite 3rd generation
+	YandexGPTModelLite = yandexGPTModel{modelName: "yandexgpt-lite"}
+	// Yandex GPT Pro 4th generation
+	YandexGPT4Model = yandexGPTModel{modelName: "yandexgpt/rc"}
+	// Yandex GPT Lite 4th generation
 	YandexGPT4ModelLite = yandexGPTModel{modelName: "yandexgpt-lite/rc"}
-	YandexGPT4Model32k  = yandexGPTModel{modelName: "yandexgpt-32k/rc"}
+	// Yandex GPT Pro 32k 4th generation
+	YandexGPT4Model32k = yandexGPTModel{modelName: "yandexgpt-32k/rc"}
 )
 
 type yandexGPTModel struct {

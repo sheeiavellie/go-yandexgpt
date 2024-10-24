@@ -26,7 +26,7 @@ import (
 func main() {
 	client := yandexgpt.NewYandexGPTClientWithAPIKey("apiKey")
 	request := yandexgpt.YandexGPTRequest{
-		ModelURI: yandexgpt.MakeModelURI("catalogID", yandexgpt.YandexGPT3ModelLite),
+		ModelURI: yandexgpt.MakeModelURI("catalogID", yandexgpt.YandexGPTModelLite),
 		CompletionOptions: yandexgpt.YandexGPTCompletionOptions{
 			Stream:      false,
 			Temperature: 0.7,
