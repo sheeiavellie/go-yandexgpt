@@ -46,7 +46,7 @@ func main() {
 
 	response, err := client.CreateRequest(context.Background(), request)
 	if err != nil {
-		fmt.Println("Error")
+		fmt.Println("Request error")
 		return
 	}
 
