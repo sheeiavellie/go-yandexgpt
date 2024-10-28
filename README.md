@@ -9,7 +9,7 @@ This library provides unofficial Go client for [YandexGPT API](https://cloud.yan
 ```
 go get github.com/sheeiavellie/go-yandexgpt
 ```
-Currently, go-openai requires Go version 1.22 or greater.
+Currently, go-yandexgpt requires Go version 1.22 or greater.
 
 
 ## Usage
