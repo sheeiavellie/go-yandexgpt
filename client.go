@@ -53,11 +53,12 @@ func NewYandexGPTClientWithAPIKey(
 	}
 }
 
+// TODO: change type any maybe
 func (c *YandexGPTClient) newRequest(
 	ctx context.Context,
 	method,
 	url string,
-	req YandexGPTRequest,
+	req any,
 ) (*http.Request, error) {
 	request, err := c.requestBuilder.Build(ctx, method, url, req)
 	if err != nil {
@@ -87,19 +88,14 @@ func (c *YandexGPTClient) sendRequest(
 	if v != nil {
 		v.SetHeader(response.Header)
 	}
-
+  
 	return json.NewDecoder(response.Body).Decode(v)
 }
 
 func (c *YandexGPTClient) setHeaders(request *http.Request) {
 	request.Header.Set("Content-Type", "application/json")
 
-	if c.config.ApiKey != "" {
-		request.Header.Set(
-			"Authorization",
-			fmt.Sprintf("Api-Key %s", c.config.ApiKey),
-		)
-	} else if c.config.IAMToken != "" {
+	if c.config.IAMToken != "" {
 		request.Header.Set(
 			"Authorization",
 			fmt.Sprintf("Bearer %s", c.config.IAMToken),
@@ -119,36 +115,4 @@ func (c *YandexGPTClient) handleResponseError(response *http.Response) error {
 		errResponse.Error.HTTPStatus,
 		errResponse.Error.Message,
 	)
-}
-
-// Updates IAM token.
-//
-// Always call it before creating a request.
-//
-// If you will use it when API key is specified, method CreateRequest(...) will always use API key.
-func (c *YandexGPTClient) UpdateIAMToken(iamToken string) {
-	c.config.updateIAMToken(iamToken)
-}
-
-// Creates request to YandexGPT.
-//
-// If you're using IAM token, make sure to update client's IAM token by calling
-// UpdateIAMToken(iamToken string) method first.
-//
-// Keep in mind that if for some strange reason you provided  API key and IAM token to the client,
-// this method will use API key
-func (c *YandexGPTClient) CreateRequest(
-	ctx context.Context,
-	request YandexGPTRequest,
-) (response YandexGPTResponse, err error) {
-	//TODO:
-	//1. Validate Request
-
-	req, err := c.newRequest(ctx, http.MethodPost, c.config.BaseURL, request)
-	if err != nil {
-		return
-	}
-	err = c.sendRequest(req, &response)
-
-	return
 }

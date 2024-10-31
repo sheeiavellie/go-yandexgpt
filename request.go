@@ -11,3 +11,7 @@ type YandexGPTCompletionOptions struct {
 	Temperature float32 `json:"temperature"`
 	MaxTokens   int     `json:"maxTokens"`
 }
+
+type YandexIAMRequest struct {
+  APIKey string `json:"yandexPassportOauthToken"`
+}

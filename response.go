@@ -1,6 +1,9 @@
 package yandexgpt
 
-import "net/http"
+import (
+	"net/http"
+	"time"
+)
 
 type Response interface {
 	SetHeader(http.Header)
@@ -36,4 +39,10 @@ type YandexGPTUsage struct {
 	InputTokens      string `json:"inputTextTokens"`
 	CompletionTokens string `json:"completionTokens"`
 	TotalTokens      string `json:"totalTokens"`
+}
+
+type YandexIAMResponse struct {
+	IAMToken  string    `json:"iamToken"`
+	ExpiresAt time.Time `json:"expiresAt"`
+	httpHeader
 }

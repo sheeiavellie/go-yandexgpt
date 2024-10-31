@@ -4,6 +4,7 @@ import "net/http"
 
 const (
 	completionURL = "https://llm.api.cloud.yandex.net/foundationModels/v1/completion"
+  baseURL = "https://llm.api.cloud.yandex.net/foundationModels/v1"
 )
 
 type YandexGPTClientConfig struct {
@@ -15,7 +16,7 @@ type YandexGPTClientConfig struct {
 
 func NewYandexGPTClientConfig() *YandexGPTClientConfig {
 	return &YandexGPTClientConfig{
-		BaseURL:    completionURL,
+		BaseURL:    baseURL,
 		HTTPClient: &http.Client{},
 	}
 }
@@ -25,7 +26,7 @@ func NewYandexGPTClientConfigWithIAMToken(
 ) *YandexGPTClientConfig {
 	return &YandexGPTClientConfig{
 		IAMToken:   iamToken,
-		BaseURL:    completionURL,
+		BaseURL:    baseURL,
 		HTTPClient: &http.Client{},
 	}
 }
@@ -35,7 +36,7 @@ func NewYandexGPTClientConfigWithAPIKey(
 ) *YandexGPTClientConfig {
 	return &YandexGPTClientConfig{
 		ApiKey:     apiKey,
-		BaseURL:    completionURL,
+		BaseURL:    baseURL,
 		HTTPClient: &http.Client{},
 	}
 }
