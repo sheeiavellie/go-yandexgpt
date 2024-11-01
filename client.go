@@ -77,7 +77,7 @@ func (c *YandexGPTClient) newRequest(
 	if err != nil {
 		return nil, err
 	}
-
+  
 	c.setHeaders(request)
 
 	return request, nil
