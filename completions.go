@@ -5,6 +5,8 @@ import (
 	"net/http"
 )
 
+const completionURL = "https://llm.api.cloud.yandex.net/foundationModels/v1"
+
 // Get completion from YandexGPT.
 //
 // If you're using IAM token, make sure to update client's IAM token by calling
@@ -19,12 +21,28 @@ func (c *YandexGPTClient) GetCompletion(
 	// TODO:
 	// 1. Validate Request
 
-	endpoint := c.config.BaseURL + "/completion"
+	endpoint := completionURL + "/completion"
 
 	req, err := c.newRequest(ctx, http.MethodPost, endpoint, request)
 	if err != nil {
 		return
 	}
+	err = c.sendRequest(req, &response)
+
+	return
+}
+
+func (c *YandexGPTClient) RunCompletionAsync(
+	ctx context.Context,
+	request YandexGPTRequest,
+) (response YandexCompletionResponse, err error) {
+	endpoint := completionURL + "/completionAsync"
+
+	req, err := c.newRequest(ctx, http.MethodPost, endpoint, request)
+	if err != nil {
+		return
+	}
+
 	err = c.sendRequest(req, &response)
 
 	return

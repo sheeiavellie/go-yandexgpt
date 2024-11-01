@@ -2,11 +2,6 @@ package yandexgpt
 
 import "net/http"
 
-const (
-	completionURL = "https://llm.api.cloud.yandex.net/foundationModels/v1/completion"
-  baseURL = "https://llm.api.cloud.yandex.net/foundationModels/v1"
-)
-
 type YandexGPTClientConfig struct {
 	ApiKey     string
 	IAMToken   string
@@ -16,7 +11,6 @@ type YandexGPTClientConfig struct {
 
 func NewYandexGPTClientConfig() *YandexGPTClientConfig {
 	return &YandexGPTClientConfig{
-		BaseURL:    baseURL,
 		HTTPClient: &http.Client{},
 	}
 }
@@ -26,7 +20,6 @@ func NewYandexGPTClientConfigWithIAMToken(
 ) *YandexGPTClientConfig {
 	return &YandexGPTClientConfig{
 		IAMToken:   iamToken,
-		BaseURL:    baseURL,
 		HTTPClient: &http.Client{},
 	}
 }
@@ -36,7 +29,6 @@ func NewYandexGPTClientConfigWithAPIKey(
 ) *YandexGPTClientConfig {
 	return &YandexGPTClientConfig{
 		ApiKey:     apiKey,
-		BaseURL:    baseURL,
 		HTTPClient: &http.Client{},
 	}
 }
