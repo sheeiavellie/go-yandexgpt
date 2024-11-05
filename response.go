@@ -49,14 +49,14 @@ type YandexIAMResponse struct {
 }
 
 type YandexCompletionResponse struct {
-	ID          string           `json:"id"`
-	Description string           `json:"description"`
-	CreatedAt   string           `json:"createdAt"`
-	ModifiedAt  string           `json:"modifiedAt"`
-	Done        bool             `json:"done"`
+	ID          string            `json:"id"`
+	Description string            `json:"description"`
+	CreatedAt   string            `json:"createdAt"`
+	ModifiedAt  string            `json:"modifiedAt"`
+	Done        bool              `json:"done"`
 	Metadata    *MetadataResponse `json:"metadata"`
 	Error       *StatusResponse   `json:"error"`
-	Response    string           `json:"response"`
+	Response    string            `json:"response"`
 	httpHeader
 }
 
@@ -77,12 +77,12 @@ type DetailsResponse struct {
 }
 
 type OperationResponse struct {
-	ID          string           `json:"id"`
-	Description string           `json:"description"`
-	CreatedAt   string           `json:"createdAt"`
-	CreatedBy   string           `json:"createdBy"`
-	ModifiedAt  string           `json:"modifiedAt"`
-	Done        bool             `json:"done"`
+	ID          string            `json:"id"`
+	Description string            `json:"description"`
+	CreatedAt   string            `json:"createdAt"`
+	CreatedBy   string            `json:"createdBy"`
+	ModifiedAt  string            `json:"modifiedAt"`
+	Done        bool              `json:"done"`
 	Metadata    *MetadataResponse `json:"metadata"`
 	Error       *StatusResponse   `json:"error"`
 	Response    *YandexResponse   `json:"response"`

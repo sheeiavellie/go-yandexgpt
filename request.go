@@ -13,5 +13,5 @@ type YandexGPTCompletionOptions struct {
 }
 
 type YandexIAMRequest struct {
-  APIKey string `json:"yandexPassportOauthToken"`
+	APIKey string `json:"yandexPassportOauthToken"`
 }

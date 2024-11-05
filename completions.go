@@ -18,8 +18,6 @@ func (c *YandexGPTClient) GetCompletion(
 	ctx context.Context,
 	request YandexGPTRequest,
 ) (response YandexGPTResponse, err error) {
-	// TODO:
-	// 1. Validate Request
 
 	endpoint := completionURL + "/completion"
 

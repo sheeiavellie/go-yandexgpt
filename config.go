@@ -5,7 +5,6 @@ import "net/http"
 type YandexGPTClientConfig struct {
 	ApiKey     string
 	IAMToken   string
-	BaseURL    string
 	HTTPClient *http.Client
 }
 

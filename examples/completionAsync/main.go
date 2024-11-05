@@ -4,14 +4,13 @@ import (
 	"context"
 	"fmt"
 	"log"
-	"os"
 	"time"
 
 	"github.com/sheeiavellie/go-yandexgpt"
 )
 
 func main() {
-	client := yandexgpt.NewYandexGPTClientWithAPIKey(os.Getenv("YAAPI_KEY"))
+	client := yandexgpt.NewYandexGPTClientWithAPIKey("API_KEY")
 
 	// get, update and set iam token
 	ctx := context.Background()
@@ -21,7 +20,7 @@ func main() {
 	}
 
 	request := yandexgpt.YandexGPTRequest{
-		ModelURI: yandexgpt.MakeModelURI(os.Getenv("CATALOG_ID"), yandexgpt.YandexGPT4ModelLite),
+		ModelURI: yandexgpt.MakeModelURI("CATALOG_ID", yandexgpt.YandexGPT4ModelLite),
 		CompletionOptions: yandexgpt.YandexGPTCompletionOptions{
 			Stream:      false,
 			Temperature: 0.7,
@@ -29,12 +28,12 @@ func main() {
 		},
 		Messages: []yandexgpt.YandexGPTMessage{
 			{
-				Role:         yandexgpt.YandexGPTMessageRoleSystem,
-				Text:         "Every time you get ONE you answer just TWO",
+				Role: yandexgpt.YandexGPTMessageRoleSystem,
+				Text: "Every time you get ONE you answer just TWO",
 			},
 			{
-				Role:         yandexgpt.YandexGPTMessageRoleUser,
-				Text:         "ONE",
+				Role: yandexgpt.YandexGPTMessageRoleUser,
+				Text: "ONE",
 			},
 		},
 	}
@@ -53,10 +52,10 @@ func main() {
 
 		if status.Done {
 			isCompleted = true
-      fmt.Println("\n Chat answer: \n")
+			fmt.Println("\n Chat answer: \n")
 			fmt.Println(status.Response.Alternatives[0].Message.Text)
 		} else {
-      time.Sleep(5 * time.Second)
-    }
+			time.Sleep(5 * time.Second)
+		}
 	}
 }

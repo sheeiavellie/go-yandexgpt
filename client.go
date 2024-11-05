@@ -53,7 +53,6 @@ func NewYandexGPTClientWithAPIKey(
 	}
 }
 
-// TODO: change type any maybe
 func (c *YandexGPTClient) newRequest(
 	ctx context.Context,
 	method,
@@ -64,7 +63,7 @@ func (c *YandexGPTClient) newRequest(
 	if err != nil {
 		return nil, err
 	}
-  
+
 	c.setHeaders(request)
 
 	return request, nil
