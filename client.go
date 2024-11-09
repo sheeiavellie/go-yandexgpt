@@ -53,6 +53,17 @@ func NewYandexGPTClientWithAPIKey(
 	}
 }
 
+func NewYandexGPTClientWithOAuthToken(
+	oauthToken string,
+) *YandexGPTClient {
+	config := NewYandexGPTClientConfigWithOAuthToken(oauthToken)
+
+	return &YandexGPTClient{
+		config:         config,
+		requestBuilder: internal.NewRequestBuilder(),
+	}
+}
+
 func (c *YandexGPTClient) newRequest(
 	ctx context.Context,
 	method,
@@ -98,6 +109,12 @@ func (c *YandexGPTClient) setHeaders(request *http.Request) {
 		request.Header.Set(
 			"Authorization",
 			fmt.Sprintf("Bearer %s", c.config.IAMToken),
+		)
+	}
+	if c.config.ApiKey != "" {
+		request.Header.Set(
+			"Authorization",
+			fmt.Sprintf("Bearer %s", c.config.ApiKey),
 		)
 	}
 }

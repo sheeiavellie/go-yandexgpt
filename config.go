@@ -3,6 +3,7 @@ package yandexgpt
 import "net/http"
 
 type YandexGPTClientConfig struct {
+	OAuthToken string
 	ApiKey     string
 	IAMToken   string
 	HTTPClient *http.Client
@@ -32,6 +33,15 @@ func NewYandexGPTClientConfigWithAPIKey(
 	}
 }
 
-func (c *YandexGPTClientConfig) updateIAMToken(iamToken string) {
+func NewYandexGPTClientConfigWithOAuthToken(
+	oauthToken string,
+) *YandexGPTClientConfig {
+	return &YandexGPTClientConfig{
+		OAuthToken: oauthToken,
+		HTTPClient: &http.Client{},
+	}
+}
+
+func (c *YandexGPTClientConfig) SetIAMToken(iamToken string) {
 	c.IAMToken = iamToken
 }

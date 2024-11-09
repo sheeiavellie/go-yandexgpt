@@ -12,8 +12,8 @@ const getIAMUrl = "https://iam.api.cloud.yandex.net/iam/v1/tokens"
 // Always call it before creating a request.
 //
 // If you will use it when API key is specified, method CreateRequest(...) will always use API key.
-func (c *YandexGPTClient) UpdateIAMToken(ctx context.Context) error {
-	iamRq := YandexIAMRequest{APIKey: c.config.ApiKey}
+func (c *YandexGPTClient) GetIAMToken(ctx context.Context) error {
+	iamRq := YandexIAMRequest{OAuthToken: c.config.OAuthToken}
 	req, err := c.newRequest(ctx, http.MethodPost, getIAMUrl, iamRq)
 	if err != nil {
 		return err
@@ -26,6 +26,6 @@ func (c *YandexGPTClient) UpdateIAMToken(ctx context.Context) error {
 	}
 
 	//set new IAMToken
-	c.config.updateIAMToken(resp.IAMToken)
+	c.config.SetIAMToken(resp.IAMToken)
 	return nil
 }
