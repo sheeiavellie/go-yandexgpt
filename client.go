@@ -53,6 +53,9 @@ func NewYandexGPTClientWithAPIKey(
 	}
 }
 
+// Creates new YandexGPT Client.
+//
+// You will need to specify your own OAuth key.
 func NewYandexGPTClientWithOAuthToken(
 	oauthToken string,
 ) *YandexGPTClient {

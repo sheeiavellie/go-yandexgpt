@@ -42,6 +42,9 @@ func NewYandexGPTClientConfigWithOAuthToken(
 	}
 }
 
+// Setter for IAM token in config.
+//
+// Use it for manually updating token in config.
 func (c *YandexGPTClientConfig) SetIAMToken(iamToken string) {
 	c.IAMToken = iamToken
 }
