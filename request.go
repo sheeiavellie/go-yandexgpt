@@ -15,3 +15,8 @@ type YandexGPTCompletionOptions struct {
 type YandexIAMRequest struct {
 	OAuthToken string `json:"yandexPassportOauthToken"`
 }
+
+type YandexGPTEmbeddingsRequest struct {
+	ModelURI string `json:"modelUri"`
+	Text     string `json:"text"`
+}

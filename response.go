@@ -89,6 +89,13 @@ type OperationResponse struct {
 	httpHeader
 }
 
+type EmbeddingResponse struct {
+	Embedding    []float64 `json:"embedding"`
+	NumTokens    string    `json:"numTokens"`
+	ModelVersion string    `json:"modelVersion"`
+	httpHeader
+}
+
 type YandexResponse struct {
 	Type         string                 `json:"@type"`
 	Alternatives []YandexGPTAlternative `json:"alternatives"`
