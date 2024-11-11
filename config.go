@@ -2,20 +2,15 @@ package yandexgpt
 
 import "net/http"
 
-const (
-	completionURL = "https://llm.api.cloud.yandex.net/foundationModels/v1/completion"
-)
-
 type YandexGPTClientConfig struct {
+	OAuthToken string
 	ApiKey     string
 	IAMToken   string
-	BaseURL    string
 	HTTPClient *http.Client
 }
 
 func NewYandexGPTClientConfig() *YandexGPTClientConfig {
 	return &YandexGPTClientConfig{
-		BaseURL:    completionURL,
 		HTTPClient: &http.Client{},
 	}
 }
@@ -25,7 +20,6 @@ func NewYandexGPTClientConfigWithIAMToken(
 ) *YandexGPTClientConfig {
 	return &YandexGPTClientConfig{
 		IAMToken:   iamToken,
-		BaseURL:    completionURL,
 		HTTPClient: &http.Client{},
 	}
 }
@@ -35,11 +29,22 @@ func NewYandexGPTClientConfigWithAPIKey(
 ) *YandexGPTClientConfig {
 	return &YandexGPTClientConfig{
 		ApiKey:     apiKey,
-		BaseURL:    completionURL,
 		HTTPClient: &http.Client{},
 	}
 }
 
-func (c *YandexGPTClientConfig) updateIAMToken(iamToken string) {
+func NewYandexGPTClientConfigWithOAuthToken(
+	oauthToken string,
+) *YandexGPTClientConfig {
+	return &YandexGPTClientConfig{
+		OAuthToken: oauthToken,
+		HTTPClient: &http.Client{},
+	}
+}
+
+// Setter for IAM token in config.
+//
+// Use it for manually updating token in config.
+func (c *YandexGPTClientConfig) SetIAMToken(iamToken string) {
 	c.IAMToken = iamToken
 }
