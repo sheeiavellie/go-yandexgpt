@@ -117,7 +117,7 @@ func (c *YandexGPTClient) setHeaders(request *http.Request) {
 	if c.config.ApiKey != "" {
 		request.Header.Set(
 			"Authorization",
-			fmt.Sprintf("Bearer %s", c.config.ApiKey),
+			fmt.Sprintf("Api-Key %s", c.config.ApiKey),
 		)
 	}
 }
