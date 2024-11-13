@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-	client := yandexgpt.NewYandexGPTClientWithOAuthToken("OAUTH_KEY")
+	client := yandexgpt.NewYandexGPTClientWithOAuthToken("OAUTH_TOKEN")
 
 	// get, update and set iam token
 	ctx := context.Background()
