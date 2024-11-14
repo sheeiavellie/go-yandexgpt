@@ -43,19 +43,26 @@ func main() {
 		log.Fatal(err)
 	}
 
-	isCompleted := false
-	for !isCompleted {
-		status, err := client.GetOperationStatus(ctx, response.ID)
-		if err != nil {
-			log.Fatal(err)
-		}
+	ticker := time.NewTicker(5 * time.Second)
+	defer ticker.Stop()
 
-		if status.Done {
-			isCompleted = true
-			fmt.Println("\n Chat answer: \n")
-			fmt.Println(status.Response.Alternatives[0].Message.Text)
-		} else {
-			time.Sleep(5 * time.Second)
+	for {
+		select {
+		case <-ctx.Done():
+			fmt.Println("Operation was cancelled")
+			return
+
+		case <-ticker.C:
+			status, err := client.GetOperationStatus(ctx, response.ID)
+			if err != nil {
+				log.Fatal(err)
+			}
+
+			if status.Done {
+				fmt.Println("\nChat answer:\n")
+				fmt.Println(status.Response.Alternatives[0].Message.Text)
+				return
+			}
 		}
 	}
 }
