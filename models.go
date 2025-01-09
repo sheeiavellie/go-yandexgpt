@@ -14,9 +14,9 @@ var (
 	// Yandex GPT Pro 32k 4th generation
 	YandexGPT4Model32k = yandexGPTModel{modelName: "yandexgpt-32k/rc"}
 	// Llama Lite 3rd generation
-	LLAMALite = yandexGPTModel{modelName: "llama-lite/latest"}
+	LLAMA3Lite = yandexGPTModel{modelName: "llama-lite/latest"}
 	// Llama  3rd generation
-	LLAMAL3 = yandexGPTModel{modelName: "llama/latest"}
+	LLAMA3 = yandexGPTModel{modelName: "llama/latest"}
 )
 
 type yandexGPTModel struct {
