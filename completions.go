@@ -17,17 +17,22 @@ const completionURL = "https://llm.api.cloud.yandex.net/foundationModels/v1"
 func (c *YandexGPTClient) GetCompletion(
 	ctx context.Context,
 	request YandexGPTRequest,
-) (response YandexGPTResponse, err error) {
+) (*YandexGPTResponse, error) {
 
 	endpoint := completionURL + "/completion"
 
 	req, err := c.newRequest(ctx, http.MethodPost, endpoint, request)
 	if err != nil {
-		return
+		return nil, err
 	}
-	err = c.sendRequest(req, &response)
 
-	return
+	var resp YandexGPTResponse
+	err = c.sendRequest(req, &resp)
+	if err != nil {
+		return nil, err
+	}
+
+	return &resp, nil
 }
 
 // Get completion from YandexGPT with async method.
@@ -40,15 +45,19 @@ func (c *YandexGPTClient) GetCompletion(
 func (c *YandexGPTClient) RunCompletionAsync(
 	ctx context.Context,
 	request YandexGPTRequest,
-) (response YandexCompletionResponse, err error) {
+) (*YandexCompletionResponse, error) {
 	endpoint := completionURL + "/completionAsync"
 
 	req, err := c.newRequest(ctx, http.MethodPost, endpoint, request)
 	if err != nil {
-		return
+		return nil, err
 	}
 
-	err = c.sendRequest(req, &response)
+	var resp YandexCompletionResponse
+	err = c.sendRequest(req, &resp)
+	if err != nil {
+		return nil, err
+	}
 
-	return
+	return &resp, nil
 }
