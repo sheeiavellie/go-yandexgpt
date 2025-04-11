@@ -1,50 +1,75 @@
 package yandexgpt
 
-import "net/http"
+import (
+	"errors"
+	"net/http"
+	"sync"
+)
 
-type YandexGPTClientConfig struct {
-	OAuthToken string
-	ApiKey     string
-	IAMToken   string
+const (
+	CfgModeApiKey   string = "ApiKeyMode"
+	CfgModeIAMToken string = "IAMTokenMode"
+)
+
+type yandexGPTClientConfig struct {
+	// Auth creds
+	ApiKey   string
+	IAMToken string
+
+	// Http clietn to make requests
 	HTTPClient *http.Client
+
+	Mode func() string
+
+	mu *sync.Mutex
 }
 
-func NewYandexGPTClientConfig() *YandexGPTClientConfig {
-	return &YandexGPTClientConfig{
-		HTTPClient: &http.Client{},
+var (
+	CfgApiKey = func(apiKey string) *yandexGPTClientConfig {
+		return &yandexGPTClientConfig{
+			mu:         &sync.Mutex{},
+			ApiKey:     apiKey,
+			HTTPClient: &http.Client{},
+			Mode: func() string {
+				return CfgModeApiKey
+			},
+		}
 	}
-}
 
-func NewYandexGPTClientConfigWithIAMToken(
-	iamToken string,
-) *YandexGPTClientConfig {
-	return &YandexGPTClientConfig{
-		IAMToken:   iamToken,
+	CfgIAMToken = &yandexGPTClientConfig{
+		mu:         &sync.Mutex{},
 		HTTPClient: &http.Client{},
+		Mode: func() string {
+			return CfgModeIAMToken
+		},
 	}
-}
+)
 
-func NewYandexGPTClientConfigWithAPIKey(
-	apiKey string,
-) *YandexGPTClientConfig {
-	return &YandexGPTClientConfig{
-		ApiKey:     apiKey,
-		HTTPClient: &http.Client{},
+// TODO: reexport config and add proper validation
+func (c *yandexGPTClientConfig) Validate() error {
+	if c.ApiKey == "" || c.IAMToken == "" {
+		return errors.New("no Auth credential provided")
 	}
-}
 
-func NewYandexGPTClientConfigWithOAuthToken(
-	oauthToken string,
-) *YandexGPTClientConfig {
-	return &YandexGPTClientConfig{
-		OAuthToken: oauthToken,
-		HTTPClient: &http.Client{},
+	if c.HTTPClient == nil {
+		return errors.New("no HTTP client provided")
 	}
+
+	return nil
 }
 
 // Setter for IAM token in config.
-//
-// Use it for manually updating token in config.
-func (c *YandexGPTClientConfig) SetIAMToken(iamToken string) {
+func (c *yandexGPTClientConfig) setIAMToken(iamToken string) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+
 	c.IAMToken = iamToken
+}
+
+// Setter for API key in config.
+func (c *yandexGPTClientConfig) setAPIKey(apiKey string) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+
+	c.ApiKey = apiKey
 }
