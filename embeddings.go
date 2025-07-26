@@ -31,13 +31,17 @@ func (em embeddingsModel) String() string {
 func (c *YandexGPTClient) GetEmbedding(
 	ctx context.Context,
 	request YandexGPTEmbeddingsRequest,
-) (response EmbeddingResponse, err error) {
+) (*EmbeddingResponse, error) {
 	req, err := c.newRequest(ctx, http.MethodPost, embeddingsURL, request)
 	if err != nil {
-		return
+		return nil, err
 	}
 
-	err = c.sendRequest(req, &response)
+	var resp EmbeddingResponse
+	err = c.sendRequest(req, &resp)
+	if err != nil {
+		return nil, err
+	}
 
-	return
+	return &resp, nil
 }

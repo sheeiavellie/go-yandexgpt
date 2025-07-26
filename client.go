@@ -12,57 +12,13 @@ import (
 // YandexGPT Client
 type YandexGPTClient struct {
 	requestBuilder internal.RequestBuilder
-	config         *YandexGPTClientConfig
+	config         *yandexGPTClientConfig
 }
 
 // Creates new YandexGPT Client.
-//
-// If you're using this option, keep in mind that you will need to generate IAM  token yourself.
-func NewYandexGPTClientWithIAMToken(
-	iamToken string,
-) *YandexGPTClient {
-	config := NewYandexGPTClientConfigWithIAMToken(iamToken)
-
+func New(cfg *yandexGPTClientConfig) *YandexGPTClient {
 	return &YandexGPTClient{
-		config:         config,
-		requestBuilder: internal.NewRequestBuilder(),
-	}
-}
-
-// Creates new YandexGPT Client.
-func NewYandexGPTClient() *YandexGPTClient {
-	config := NewYandexGPTClientConfig()
-
-	return &YandexGPTClient{
-		config:         config,
-		requestBuilder: internal.NewRequestBuilder(),
-	}
-}
-
-// Creates new YandexGPT Client.
-//
-// You will need to specify your own API key.
-func NewYandexGPTClientWithAPIKey(
-	apiKey string,
-) *YandexGPTClient {
-	config := NewYandexGPTClientConfigWithAPIKey(apiKey)
-
-	return &YandexGPTClient{
-		config:         config,
-		requestBuilder: internal.NewRequestBuilder(),
-	}
-}
-
-// Creates new YandexGPT Client.
-//
-// You will need to specify your own OAuth key.
-func NewYandexGPTClientWithOAuthToken(
-	oauthToken string,
-) *YandexGPTClient {
-	config := NewYandexGPTClientConfigWithOAuthToken(oauthToken)
-
-	return &YandexGPTClient{
-		config:         config,
+		config:         cfg,
 		requestBuilder: internal.NewRequestBuilder(),
 	}
 }
@@ -108,13 +64,13 @@ func (c *YandexGPTClient) sendRequest(
 func (c *YandexGPTClient) setHeaders(request *http.Request) {
 	request.Header.Set("Content-Type", "application/json")
 
-	if c.config.IAMToken != "" {
+	switch c.config.Mode() {
+	case CfgModeIAMToken:
 		request.Header.Set(
 			"Authorization",
 			fmt.Sprintf("Bearer %s", c.config.IAMToken),
 		)
-	}
-	if c.config.ApiKey != "" {
+	case CfgModeApiKey:
 		request.Header.Set(
 			"Authorization",
 			fmt.Sprintf("Api-Key %s", c.config.ApiKey),
@@ -129,7 +85,7 @@ func (c *YandexGPTClient) handleResponseError(response *http.Response) error {
 		return err
 	}
 	return fmt.Errorf(
-		"bad response. Http Status %d %s message %s",
+		"bad response. Http Status: %d %s. Message: %s",
 		errResponse.Error.HTTPCode,
 		errResponse.Error.HTTPStatus,
 		errResponse.Error.Message,

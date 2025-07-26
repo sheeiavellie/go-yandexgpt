@@ -18,15 +18,19 @@ const operationURL = "https://operation.api.cloud.yandex.net/operations"
 func (c *YandexGPTClient) GetOperationStatus(
 	ctx context.Context,
 	operationID string,
-) (response OperationResponse, err error) {
+) (*OperationResponse, error) {
 	endpoint := operationURL + "/" + operationID
 
 	req, err := c.newRequest(ctx, http.MethodGet, endpoint, nil)
 	if err != nil {
-		return
+		return nil, err
 	}
 
-	err = c.sendRequest(req, &response)
+	var resp OperationResponse
+	err = c.sendRequest(req, &resp)
+	if err != nil {
+		return nil, err
+	}
 
-	return
+	return &resp, nil
 }
