@@ -20,7 +20,7 @@ func main() {
 	}
 
 	request := yandexgpt.YandexGPTRequest{
-		ModelURI: yandexgpt.MakeModelURI("CATALOG_ID", yandexgpt.YandexGPT4ModelLite),
+		ModelURI: yandexgpt.MakeModelURI("CATALOG_ID", yandexgpt.YandexGPTLite, yandexgpt.VersionLatest),
 		CompletionOptions: yandexgpt.YandexGPTCompletionOptions{
 			Stream:      false,
 			Temperature: 0.7,
