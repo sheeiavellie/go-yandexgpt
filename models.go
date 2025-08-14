@@ -1,28 +1,25 @@
 package yandexgpt
 
-import "fmt"
+const (
+	YandexGPTLite   = "yandexgpt-lite"
+	YandexGPTPro    = "yandexgpt"
+	YandexGPTPro32k = "yandexgpt-32k"
+	Llama8B         = "llama-lite"
+	Llama70B        = "llama"
 
-var (
-	// Yandex GPT Pro 3rd generation
-	YandexGPTModel = yandexGPTModel{modelName: "yandexgpt"}
-	// Yandex GPT Lite 3rd generation
-	YandexGPTModelLite = yandexGPTModel{modelName: "yandexgpt-lite"}
-	// Yandex GPT Pro 4th generation
-	YandexGPT4Model = yandexGPTModel{modelName: "yandexgpt/rc"}
-	// Yandex GPT Lite 4th generation
-	YandexGPT4ModelLite = yandexGPTModel{modelName: "yandexgpt-lite/rc"}
-	// Yandex GPT Pro 32k 4th generation
-	YandexGPT4Model32k = yandexGPTModel{modelName: "yandexgpt-32k/rc"}
-	// Llama Lite 3rd generation
-	LLAMA3Lite = yandexGPTModel{modelName: "llama-lite/latest"}
-	// Llama  3rd generation
-	LLAMA3 = yandexGPTModel{modelName: "llama/latest"}
+	// Only latest version https://yandex.cloud/ru/docs/foundation-models/concepts/yandexgpt/models
+	// Consider using OpenAI API
+	Qwen3_235B = "qwen3-235b-a22b-fp8"
+	// Only latest version https://yandex.cloud/ru/docs/foundation-models/concepts/yandexgpt/models
+	// Consider using OpenAI API
+	GptOss120b = "gpt-oss-120b"
+	// Only latest version https://yandex.cloud/ru/docs/foundation-models/concepts/yandexgpt/models
+	// Consider using OpenAI API
+	GptOss20b = "gpt-oss-20b"
 )
 
-type yandexGPTModel struct {
-	modelName string
-}
-
-func (ym yandexGPTModel) String() string {
-	return fmt.Sprint(ym.modelName)
-}
+const (
+	VersionLatest     = "latest"
+	VersionRC         = "rc"
+	VersionDeprecated = "deprecated"
+)
